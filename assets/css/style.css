@@ -1,0 +1,26 @@
+body {
+    background-image: url(../images/background3.jpg);
+}
+
+p {
+    text-align: center;
+    color: #093a0f;
+    font-family: 'Volkhov', serif;
+    font-size: 20px;
+    
+}
+
+.title {
+    padding: 10px;
+    color: #093a0f;
+    font-family: 'Volkhov', serif;
+    text-align: center;
+    font-style: italic;
+}
+
+.content {
+    border: 5px double #ffffff;
+    margin-top: 20px;
+    padding: 20px;
+}
+
