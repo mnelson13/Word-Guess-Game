@@ -1,57 +1,93 @@
-
-var zeldaWords = ['zelda', 'link', 'epona', 'kakariko'];
 var wordDisplay = document.getElementById("wordDisplay");
 var guessesLeft = document.getElementById("guessesLeft");
-var numGuesses = 7;
 var wins = document.getElementById("wins");
+var numGuesses = 7;
 var numWins = 0;
-wins.textContent = numWins;
+
 var guessedLetters = document.getElementById("guessedLetters");
 var letters = [];
 
 var zelda = {
-    wordDefinition: ["The princess of hyrule",
-        "The main character of the game who saves Hyrule",
-        "Link's trusty horse that he rescued from Ingo",
-        "The town of Hyrule where most residents live"
+    words: ['zelda', 
+        'link', 
+        'epona', 
+        'kakariko',
+        'ganandorf',
+        'cuccos',
+        'triforce',
+        'goron',
+        'zora',
+        'kokiri',
+        'saria'
     ],
-    image: [ "assets/images/zelda.jpg", 
-        "assets/images/link.jpg",
+    
+    wordDefinition: ["Zelda: The princess of hyrule",
+        "Link: The main character of the game who saves Hyrule",
+        "Epona: Link's trusty horse that he rescued from Ingo",
+        "Kakariko: The town of Hyrule where most residents live",
+        "Ganondorf: The only male of the Gerudo tribe and the main antagonist of Hyrule",
+        "Cuccos: The chickens of Hyrule",
+        "Triforce: The three piece triangle that contains Courage, Wisdom, and Power",
+        "Goron: A race of rock people inhabiting Hyrule",
+        "Zora: The proud aquatic people of Hyrule",
+        "Kokiri: The children of the forest",
+        "Saria: Link's childhood friend and the Forest Sage"
+
+    ],
+
+    image: [ "assets/images/zelda.png", 
+        "assets/images/link.png",
         "assets/images/epona.png",
-        "assets/images/kakariko.jpg"]
+        "assets/images/kakariko.jpg",
+        "assets/images/ganondorf.png",
+        "assets/images/cuccos.gif",
+        "assets/images/triforce.png",
+        "assets/images/goron.png",
+        "assets/images/zora.png",
+        "assets/images/kokiri.png",
+        "assets/images/saria.png"
+    ]
     
 }
 
+//displays description of word on win
 function winningDisplay (winningWord) {
-    var winningWordIndex = zeldaWords.indexOf(winningWord);
+    var winningWordIndex = zelda.words.indexOf(winningWord);
     var winText = document.getElementById("winText");
     winText.textContent = zelda.wordDefinition[winningWordIndex];
 
 }
 
+//displays image of word on win
 function winningImage (winningWord) {
-    var winningWordIndex = zeldaWords.indexOf(winningWord);
+    var winningWordIndex = zelda.words.indexOf(winningWord);
     var winImage = document.getElementById('winImage');
     winImage.setAttribute("src", zelda.image[winningWordIndex]);
 } 
 
 
 
-
+//on first keypress
 document.onkeyup = function start() {
-    //stores key pressed into a variable
-    // var keyPressed = event.key;
-    //picks a random string in array zeldaWords and stores it to var currentWord
-    var currentWord = zeldaWords[Math.floor(zeldaWords.length * Math.random())];
+    //picks a random string in array zelda.words and stores it to var currentWord
+    var currentWord = zelda.words[Math.floor(zelda.words.length * Math.random())];
+    
+    // to test a specific word
+    // var currentWord = zelda.words[4];
+    
     //starts blank Array for the current word
     var currentWordArray = [];
+
     //starts blank Array for num of blanks
     var blanksArray = [];
+
     //starts guesses left at 7
     guessesLeft.textContent = numGuesses;
 
+    //starts wins at 0
+    wins.textContent = numWins;
 
-    //pushes letter of currentWord into currentWord Array
+    //pushes letters of currentWord into currentWord Array
     //then, pushes same number of blanks as words in currentWord to blanksArray
     //displays blanksArray with commas removed
     for (i = 0; i < currentWord.length; i++) {
@@ -61,6 +97,7 @@ document.onkeyup = function start() {
         
     }
 
+    //on second keypress
     document.onkeyup = function(event) {
         //stores key pressed into a variable
         var keyPressed = event.key;
@@ -93,7 +130,7 @@ document.onkeyup = function start() {
                 winningDisplay (winningWord);
                 winningImage (winningWord);
 
-                //restarts with new word
+                //restarts with new word on keypress
                 document.onkeyup = function() {
                     start();
                     numGuesses = 7;
@@ -101,6 +138,7 @@ document.onkeyup = function start() {
                     letters = [];
                     guessedLetters.textContent = letters;
                     winText.textContent = '';
+                    winImage.setAttribute("src", "");
                 }
 
             }
@@ -112,7 +150,7 @@ document.onkeyup = function start() {
                 lost.textContent = "Out of guesses!";
                 wordDisplay.textContent = currentWordArray.join('');
                 
-                //restarts with new word
+                //restarts with new word on keypress
                 document.onkeyup = function() {
                     start();
                     numGuesses = 7;
@@ -126,12 +164,7 @@ document.onkeyup = function start() {
             }
 
            
-
-            
-            }
-        
-
-
+        }
 
     };
     
