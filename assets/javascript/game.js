@@ -1,10 +1,9 @@
 var wordDisplay = document.getElementById("wordDisplay");
 var guessesLeft = document.getElementById("guessesLeft");
 var wins = document.getElementById("wins");
+var guessedLetters = document.getElementById("guessedLetters");
 var numGuesses = 7;
 var numWins = 0;
-
-var guessedLetters = document.getElementById("guessedLetters");
 var letters = [];
 
 var zelda = {
@@ -21,48 +20,47 @@ var zelda = {
         'saria'
     ],
     
-    wordDefinition: ["Zelda: The princess of hyrule",
-        "Link: The main character of the game who saves Hyrule",
-        "Epona: Link's trusty horse that he rescued from Ingo",
-        "Kakariko: The town of Hyrule where most residents live",
-        "Ganondorf: The only male of the Gerudo tribe and the main antagonist of Hyrule",
-        "Cuccos: The chickens of Hyrule",
-        "Triforce: The three piece triangle that contains Courage, Wisdom, and Power",
-        "Goron: A race of rock people inhabiting Hyrule",
-        "Zora: The proud aquatic people of Hyrule",
-        "Kokiri: The children of the forest",
-        "Saria: Link's childhood friend and the Forest Sage"
+    wordDefinition: {
+        zelda: "Zelda: The princess of hyrule",
+        link: "Link: The main character of the game who saves Hyrule",
+        epona: "Epona: Link's trusty horse that he rescued from Ingo",
+        kakariko: "Kakariko: The town of Hyrule where most residents live",
+        ganondorf: "Ganondorf: The only male of the Gerudo tribe and the main antagonist of Hyrule",
+        cuccos: "Cuccos: The chickens of Hyrule",
+        triforce: "Triforce: The three piece triangle that contains Courage, Wisdom, and Power",
+        goron: "Goron: A race of rock people inhabiting Hyrule",
+        zora: "Zora: The proud aquatic people of Hyrule",
+        kokiri: "Kokiri: The children of the forest",
+        saria: "Saria: Link's childhood friend and the Forest Sage"
+    },
 
-    ],
-
-    image: [ "assets/images/zelda.png", 
-        "assets/images/link.png",
-        "assets/images/epona.png",
-        "assets/images/kakariko.jpg",
-        "assets/images/ganondorf.png",
-        "assets/images/cuccos.gif",
-        "assets/images/triforce.png",
-        "assets/images/goron.png",
-        "assets/images/zora.png",
-        "assets/images/kokiri.png",
-        "assets/images/saria.png"
-    ]
+    image: { 
+        zelda: "assets/images/zelda.png", 
+        link: "assets/images/link.png",
+        epona: "assets/images/epona.png",
+        kakariko: "assets/images/kakariko.jpg",
+        ganondorf: "assets/images/ganondorf.png",
+        cuccos: "assets/images/cuccos.gif",
+        triforce: "assets/images/triforce.png",
+        goron: "assets/images/goron.png",
+        zora: "assets/images/zora.png",
+        kokiri: "assets/images/kokiri.png",
+        saria: "assets/images/saria.png"
+    }
     
 }
 
 //displays description of word on win
 function winningDisplay (winningWord) {
-    var winningWordIndex = zelda.words.indexOf(winningWord);
     var winText = document.getElementById("winText");
-    winText.textContent = zelda.wordDefinition[winningWordIndex];
+    winText.textContent = zelda.wordDefinition[winningWord];
 
 }
 
 //displays image of word on win
 function winningImage (winningWord) {
-    var winningWordIndex = zelda.words.indexOf(winningWord);
     var winImage = document.getElementById('winImage');
-    winImage.setAttribute("src", zelda.image[winningWordIndex]);
+    winImage.setAttribute("src", zelda.image[winningWord]);
 } 
 
 
@@ -72,8 +70,8 @@ document.onkeyup = function start() {
     //picks a random string in array zelda.words and stores it to var currentWord
     var currentWord = zelda.words[Math.floor(zelda.words.length * Math.random())];
     
-    // to test a specific word
-    // var currentWord = zelda.words[4];
+    // to test a specific word:
+    // var currentWord = zelda.words[0];
     
     //starts blank Array for the current word
     var currentWordArray = [];
@@ -112,7 +110,7 @@ document.onkeyup = function start() {
                 } 
             }
 
-            //checks if key pressed is not equal to any indexes of currentWordArray
+            //checks if key pressed is not equal to any indexes of currentWordArray and guessed letters
             //if not equal to any, number of guesses decreases by 1
             //pushes key pressed letter into letters, displays new number of guesses and guessed letters
             if (currentWordArray.indexOf(keyPressed) === -1 && letters.indexOf(keyPressed) === -1) {
