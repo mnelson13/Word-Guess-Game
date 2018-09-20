@@ -11,7 +11,7 @@ var zelda = {
         'link', 
         'epona', 
         'kakariko',
-        'ganandorf',
+        'ganondorf',
         'cuccos',
         'triforce',
         'goron',
@@ -71,7 +71,7 @@ document.onkeyup = function start() {
     var currentWord = zelda.words[Math.floor(zelda.words.length * Math.random())];
     
     // to test a specific word:
-    // var currentWord = zelda.words[0];
+    // var currentWord = zelda.words[9];
     
     //starts blank Array for the current word
     var currentWordArray = [];
