@@ -6,12 +6,39 @@ var numGuesses = 7;
 var wins = document.getElementById("wins");
 var numWins = 0;
 wins.textContent = numWins;
-var guessedLetters = document.getElementById("guessedLetters")
+var guessedLetters = document.getElementById("guessedLetters");
 var letters = [];
 
+var zelda = {
+    wordDefinition: ["The princess of hyrule",
+        "The main character of the game who saves Hyrule",
+        "Link's trusty horse that he rescued from Ingo",
+        "The town of Hyrule where most residents live"
+    ],
+    image: [ "assets/images/zelda.jpg", 
+        "assets/images/link.jpg",
+        "assets/images/epona.png",
+        "assets/images/kakariko.jpg"]
+    
+}
+
+function winningDisplay (winningWord) {
+    var winningWordIndex = zeldaWords.indexOf(winningWord);
+    var winText = document.getElementById("winText");
+    winText.textContent = zelda.wordDefinition[winningWordIndex];
+
+}
+
+function winningImage (winningWord) {
+    var winningWordIndex = zeldaWords.indexOf(winningWord);
+    var winImage = document.getElementById('winImage');
+    winImage.setAttribute("src", zelda.image[winningWordIndex]);
+} 
 
 
-document.onkeyup = function () {
+
+
+document.onkeyup = function start() {
     //stores key pressed into a variable
     // var keyPressed = event.key;
     //picks a random string in array zeldaWords and stores it to var currentWord
@@ -31,6 +58,7 @@ document.onkeyup = function () {
         currentWordArray.push(currentWord[i]);
         blanksArray.push(" _ ");
         wordDisplay.textContent = blanksArray.join("");
+        
     }
 
     document.onkeyup = function(event) {
@@ -50,19 +78,54 @@ document.onkeyup = function () {
             //checks if key pressed is not equal to any indexes of currentWordArray
             //if not equal to any, number of guesses decreases by 1
             //pushes key pressed letter into letters, displays new number of guesses and guessed letters
-            if (currentWordArray.indexOf(keyPressed) === -1) {
+            if (currentWordArray.indexOf(keyPressed) === -1 && letters.indexOf(keyPressed) === -1) {
                 numGuesses -= 1;
                 letters.push(keyPressed);
                 guessedLetters.textContent = letters;
                 guessesLeft.textContent = numGuesses;
             };
 
-            if (blanksArray == currentWordArray) {
+            //if word is guessed correctly
+            if (blanksArray.toString() == currentWordArray.toString()) {
                 numWins++;
                 wins.textContent = numWins;
+                var winningWord = currentWordArray.join('');
+                winningDisplay (winningWord);
+                winningImage (winningWord);
+
+                //restarts with new word
+                document.onkeyup = function() {
+                    start();
+                    numGuesses = 7;
+                    guessesLeft.textContent = numGuesses;
+                    letters = [];
+                    guessedLetters.textContent = letters;
+                    winText.textContent = '';
+                }
+
             }
 
-            console.log(numWins);
+
+            //if number of guesses runs out
+            if (numGuesses === 0) {
+                var lost = document.getElementById("lostText");
+                lost.textContent = "Out of guesses!";
+                wordDisplay.textContent = currentWordArray.join('');
+                
+                //restarts with new word
+                document.onkeyup = function() {
+                    start();
+                    numGuesses = 7;
+                    guessesLeft.textContent = numGuesses;
+                    letters = [];
+                    guessedLetters.textContent = letters;
+                    lost.textContent = "";
+                }
+
+            
+            }
+
+           
 
             
             }

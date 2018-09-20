@@ -6,9 +6,16 @@ p {
     text-align: center;
     color: #093a0f;
     font-family: 'Volkhov', serif;
-    font-size: 20px;
+    font-size: 18px;
+    padding: 0px;
+    font-weight: bold;
     
 }
+
+#winText {
+    font-size: 20px;
+}
+
 
 .title {
     padding: 10px;
@@ -22,5 +29,7 @@ p {
     border: 5px double #ffffff;
     margin-top: 20px;
     padding: 20px;
+    margin-bottom: 100px;
 }
+
 
